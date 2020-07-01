@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:text="@string/create_review" />
+
+    <RatingBar
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:ratingBarStyleSmall"
+        android:isIndicator="false"
+        android:id="@+id/dialog_rating"
+        android:max="5"
+        android:rating="5" />
+
+    <EditText
+        android:padding="10dp"
+        android:id="@+id/dialog_et_content"
+        android:gravity="bottom"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input"
+        android:minLines="5"
+        android:maxLines="5" />
+
+    <Button
+        android:id="@+id/dialog_btn_complete"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/primary_btn"
+        android:text="@string/complete"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+</LinearLayout>

@@ -32,6 +32,8 @@ class LoginActivity : AppCompatActivity() {
         login_tv_signup.setOnClickListener {
             moveSignUp()
         }
+
+        autoLogin()
     }
 
     // 다른 클래스에서도 사용하는 라이브 데이터
@@ -120,5 +122,35 @@ class LoginActivity : AppCompatActivity() {
     private fun moveSignUp() {
         val intent = Intent(this, SignUpChooseActivity::class.java)
         startActivity(intent)
+    }
+
+    // 자동 로그인
+    private fun autoLogin() {
+        val pref = getSharedPreferences("account", Context.MODE_PRIVATE)
+        val id = pref.getString("id", null)
+        val pw = pref.getString("pw", null)
+
+        // 로그인 트리거
+        if (id != null && pw != null) {
+            login_et_id.setText(id)
+            login_et_pw.setText(pw)
+            login_btn_login.performClick()
+        }
+    }
+
+    // 뒤로가기 2번 눌러 종료
+    private val FINISH_INTERVAL_TIME: Long = 2000
+    private var backPressedTime: Long = 0
+
+    override fun onBackPressed() {
+        var tempTime: Long = System.currentTimeMillis()
+        var intervalTime: Long = tempTime - backPressedTime
+
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+            super.onBackPressed()
+        } else {
+            backPressedTime = tempTime
+            Toast.makeText(this, "'뒤로가기'버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 }

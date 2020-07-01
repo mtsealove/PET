@@ -18,12 +18,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vipet.petvip.Account.LoginActivity
 import com.vipet.petvip.Account.RegisterPetActivity
 import com.vipet.petvip.Design.NextBtn
+import com.vipet.petvip.Design.ReviewAdapter
 import com.vipet.petvip.Design.ScheduleAdapter
 import com.vipet.petvip.MainActivity
 import com.vipet.petvip.R
 import com.vipet.petvip.ReserveActivity
 import com.vipet.petvip.Restful.Pet
 import com.vipet.petvip.Restful.Rest
+import com.vipet.petvip.Restful.Review
 import com.vipet.petvip.Restful.Schedule
 import kotlinx.android.synthetic.main.activity_reserve.*
 import retrofit2.Call
@@ -38,6 +40,7 @@ class HomeFragment : Fragment() {
     private lateinit var btn_walk: LinearLayout
     private lateinit var btn_reserve: NextBtn
     private lateinit var rv: RecyclerView
+    private lateinit var reviewRv: RecyclerView
     private lateinit var tv_schedule_more: TextView
     private var selected = 0
 
@@ -51,6 +54,8 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         rv = root.findViewById(R.id.home_rv)
         rv.layoutManager = LinearLayoutManager(context)
+        reviewRv = root.findViewById(R.id.home_rv_review)
+        reviewRv.layoutManager = LinearLayoutManager(context)
         btn_play = root.findViewById(R.id.home_btn_play)
         btn_walk = root.findViewById(R.id.home_btn_walk)
         btn_reserve = root.findViewById(R.id.home_reserve_btn)
@@ -68,6 +73,7 @@ class HomeFragment : Fragment() {
             (context as MainActivity).navController.navigate(R.id.navigation_dashboard)
         }
         getSchedule()
+        getReviews()
         return root
     }
 
@@ -121,7 +127,9 @@ class HomeFragment : Fragment() {
         val call = Rest.getService().getSchedule(id, 2)
         call.enqueue(object : Callback<List<Schedule>> {
             override fun onFailure(call: Call<List<Schedule>>, t: Throwable) {
-                Toast.makeText(context, "서버 연결 실패", Toast.LENGTH_SHORT).show()
+                context?.let { c ->
+                    Toast.makeText(c, "서버 연결 실패", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onResponse(
@@ -130,15 +138,37 @@ class HomeFragment : Fragment() {
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     // 크기 조절
-                    val adapter = ScheduleAdapter(response.body()!!, context!!)
-                    var height = 206
-                    height *= response.body()!!.size * 5
-                    Log.e("height", height.toString())
-                    rv.setHeight(height)
-                    rv.adapter = adapter
+                    response.body()?.let { schedules ->
+                        context?.let { c ->
+                            var height = 206
+                            height *= response.body()!!.size * 5
+                            rv.setHeight(height)
+                            rv.adapter = ScheduleAdapter(schedules, c)
+                        }
+
+                    }
                 }
             }
+        })
+    }
 
+    // 리뷰 3개 가저오기
+    private fun getReviews() {
+        val call = Rest.getService().getAllReviews()
+        call.enqueue(object : Callback<List<Review>> {
+            override fun onFailure(call: Call<List<Review>>, t: Throwable) {
+                Toast.makeText(context, "서버 연결 실패", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<List<Review>>, response: Response<List<Review>>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { reviews ->
+                        reviewRv.adapter = ReviewAdapter(reviews)
+                        val height = 400 * reviews.size
+                        reviewRv.setHeight(height)
+                    }
+                }
+            }
         })
     }
 

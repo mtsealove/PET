@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ReviewActivity"></activity>
+        <activity
+            android:name=".ManagerListActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="매니저 소개"></activity>
+        <activity android:name=".ReviewActivity" />
         <activity
             android:name=".ReserveActivity"
             android:label="@string/title_activity_reserve"

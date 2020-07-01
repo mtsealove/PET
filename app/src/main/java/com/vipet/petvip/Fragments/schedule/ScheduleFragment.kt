@@ -51,11 +51,11 @@ class ScheduleFragment : Fragment() {
                 response: Response<List<Schedule>>
             ) {
                 if (response.isSuccessful) {
-                    if (response.body()!!.isNotEmpty()) {
-                        val adapter = ScheduleAdapter(response.body()!!, context!!)
-                        rv.adapter = adapter
-                    } else {
-
+                    response.body()?.let { list ->
+                        context?.let { c ->
+                            val adapter = ScheduleAdapter(list, c)
+                            rv.adapter = adapter
+                        }
                     }
                 }
             }

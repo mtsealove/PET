@@ -225,4 +225,11 @@
     <string name="expert">전문가</string>
     <string name="more">더 보기</string>
     <string name="review">후기 남기기</string>
+    <string name="create_review">후기 작성</string>
+    <string name="complete">완료</string>
+    <string name="consumer_review">고객 후기</string>
+    <string name="logout">로그아웃</string>
+    <string name="pet_list">반려동물 목록</string>
+    <string name="add_pet">반려동물 추가하기</string>
+    <string name="keep_login">로그인 유지</string>
 </resources>

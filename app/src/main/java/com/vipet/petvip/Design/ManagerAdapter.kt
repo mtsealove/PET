@@ -3,6 +3,9 @@ package com.vipet.petvip.Design
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.support.v4.media.MediaBrowserCompat
 import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +23,7 @@ import com.vipet.petvip.Restful.Pet
 import com.vipet.petvip.Restful.PostSchedule
 import com.vipet.petvip.Restful.Rest
 import com.vipet.petvip.Restful.Result
+import com.vipet.petvip.ReviewActivity
 import kotlinx.android.synthetic.main.item_pet.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,8 +35,8 @@ import java.util.*
 class ManagerAdapter(
     val managers: List<Manager>,
     val context: Context,
-    val start: String,
-    val end: String
+    val start: String?,
+    val end: String?
 ) :
     RecyclerView.Adapter<ManagerAdapter.ViewHolder>() {
 
@@ -55,22 +59,31 @@ class ManagerAdapter(
         val rating = v.findViewById<RatingBar>(R.id.item_manager_rating)
         val root = v.findViewById<RelativeLayout>(R.id.item_manager_root)
 
-        fun bind(manager: Manager, context: Context, start: String, end: String) {
+        fun bind(manager: Manager, context: Context, start: String?, end: String?) {
             nameTv.text = manager.Name
             rating.max = 5
-            rating.rating = manager.Rate.toFloat()
-            root.setOnClickListener {
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("예약 확인")
-                    .setMessage("예약을 진행하시겠습니까?")
-                    .setNegativeButton("취소", null)
-                    .setPositiveButton("확인") { dialogInterface: DialogInterface, i: Int ->
-
-                        next(context, start, end, manager.ID)
+            rating.rating = manager.Rate
+            // 예약용
+            start?.let {
+                end?.let {
+                    root.setOnClickListener {
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("예약 확인")
+                            .setMessage("예약을 진행하시겠습니까?")
+                            .setNegativeButton("취소", null)
+                            .setPositiveButton("확인") { dialogInterface: DialogInterface, i: Int ->
+                                next(context, start, end, manager.ID)
+                            }
+                        builder.create().show()
                     }
-                builder.create().show()
-            }
-
+                }
+            } ?: { // 소개용
+                root.setOnClickListener {
+                    val intent = Intent(context, ReviewActivity::class.java)
+                    intent.putExtra("MANAGER", manager.ID)
+                    context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK))
+                }
+            }()
         }
 
         fun next(context: Context, start: String, end: String, managerID: String) {
@@ -82,13 +95,13 @@ class ManagerAdapter(
             Log.e("schedule", schedule.toString())
 
             val call = Rest.getService().createSchedule(schedule)
-            call.enqueue(object : Callback<Result>{
+            call.enqueue(object : Callback<Result> {
                 override fun onFailure(call: Call<Result>, t: Throwable) {
                     Toast.makeText(context, "서버 연결 실패", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call<Result>, response: Response<Result>) {
-                    if(response.isSuccessful&&response.body()!!.OK) {
+                    if (response.isSuccessful && response.body()!!.OK) {
                         Toast.makeText(context, "정상적으로 예약되었습니다.", Toast.LENGTH_SHORT).show()
                         context.finish()
                     }

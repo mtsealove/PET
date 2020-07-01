@@ -51,4 +51,16 @@ interface RetrofitService {
 
     @GET("/Schedule")
     fun getSchedule(@Query("ID") id: String, @Query("Limit") limit: Int): Call<List<Schedule>>
+
+    @GET("/Reviews/All")
+    fun getAllReviews(): Call<List<Review>>
+
+    @GET("/Reviews")
+    fun getDetailManager(@Query("ID") id: String): Call<ManagerDetail>
+
+    @POST("/Create/Review")
+    fun createReview(@Body review: PostReview): Call<Result>
+
+    @GET("/Managers")
+    fun getAllManagers(): Call<List<Manager>>
 }

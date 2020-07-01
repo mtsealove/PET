@@ -1,5 +1,7 @@
 package com.vipet.petvip.Restful
 
+import android.view.inspector.IntFlagMapping
+
 // 단순 O / X
 data class Result(
     val OK: Boolean
@@ -38,7 +40,7 @@ data class Manager(
     val ID: String,
     val Name: String,
     val Phone: String,
-    val Rate: Int
+    val Rate: Float
 )
 
 // 스케줄 정보
@@ -60,4 +62,26 @@ data class Schedule(
     val Month:String,
     val Day:String,
     val ManagerID:String
+)
+
+data class Review(
+    val MemberID:String,
+    val Rating:Float,
+    val Content:String,
+    val MemberName:String
+)
+
+data class ManagerDetail(
+    val Name:String,
+    val Rate:Float,
+    val ScheduleCnt:Int,
+    val ReviewCnt:Int,
+    val Reviews:List<Review>
+)
+
+data class PostReview(
+    val MemberID:String,
+    val ManagerID:String,
+    val Rating: Float,
+    val Content:String
 )

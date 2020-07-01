@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -28,6 +29,8 @@ class SelectTimeFragment : Fragment() {
     lateinit var dateTv: TextView
     lateinit var timeTv: TextView
     lateinit var timeSp: Spinner
+    lateinit var priceTv: TextView
+    val price = arrayOf("18,000", "26,000", "30,000", "35,000")
     val viewModel by lazy {
         TimeViewModel()
     }
@@ -49,13 +52,35 @@ class SelectTimeFragment : Fragment() {
         nextBtn = root.findViewById(R.id.select_time_btn_next)
         timeSp = root.findViewById(R.id.select_time_sp_time)
         nextBtn.setTitle("다음")
+        priceTv = root.findViewById(R.id.select_time_price)
+        priceTv.text = price[0] + "원"
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             setDate()
         }
         setTime()
         setNext()
+        setPrice()
         return root
+    }
+
+    private fun setPrice() {
+        timeSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val p = price[position]
+                priceTv.text = "${p} 원"
+            }
+
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

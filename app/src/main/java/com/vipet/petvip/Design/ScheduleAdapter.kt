@@ -52,6 +52,7 @@ class ScheduleAdapter(private val scheduleList: List<Schedule>, val context: Con
             reviewTv.setOnClickListener {
                 val intent = Intent(context, ReviewActivity::class.java)
                 intent.putExtra("MANAGER", schedule.ManagerID)
+                intent.putExtra("AUTO", true)
                 context.startActivity(intent)
             }
         }

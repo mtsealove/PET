@@ -64,7 +64,7 @@ class SelectPetFragment(val service: Int) : Fragment() {
                 if (response.isSuccessful && response.body() != null) {
                     val pets = response.body()
                     Log.e("pet", pets.toString())
-                    val adapter = PetAdapter(pets!!, context!!)
+                    val adapter = PetAdapter(pets!!, context!!, true)
                     petRv.adapter = adapter
                 }
             }

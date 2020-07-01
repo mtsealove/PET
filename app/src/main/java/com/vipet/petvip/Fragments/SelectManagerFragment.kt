@@ -47,6 +47,7 @@ class SelectManagerFragment(val Start: String, val End: String) : Fragment() {
         val call = Rest.getService().getAbleManagers(start, end)
         call.enqueue(object : Callback<List<Manager>> {
             override fun onFailure(call: Call<List<Manager>>, t: Throwable) {
+                Log.e("error", t.toString())
                 Toast.makeText(context, "서버 연결 실패", Toast.LENGTH_SHORT).show()
             }
 

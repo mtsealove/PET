@@ -19,7 +19,7 @@ import java.lang.Integer.parseInt
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PetAdapter(val pets: List<Pet>, val context: Context) :
+class PetAdapter(val pets: List<Pet>, val context: Context, val click: Boolean) :
     RecyclerView.Adapter<PetAdapter.ViewHolder>() {
 
 
@@ -33,7 +33,7 @@ class PetAdapter(val pets: List<Pet>, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(pets.get(position), context)
+        holder.bind(pets.get(position), context, click)
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -42,7 +42,7 @@ class PetAdapter(val pets: List<Pet>, val context: Context) :
         val intoTv = v.findViewById<TextView>(R.id.item_pet_tv_info)
         val root = v.findViewById<RelativeLayout>(R.id.item_pet_view)
 
-        fun bind(pet: Pet, context: Context) {
+        fun bind(pet: Pet, context: Context, click: Boolean) {
             nameTv.text = pet.Name
             val birthYear: Int = parseInt(pet.Birth.split("-")[0])
             val format = SimpleDateFormat("yyyy")
@@ -63,9 +63,11 @@ class PetAdapter(val pets: List<Pet>, val context: Context) :
                 e.printStackTrace()
             }
 
-            root.setOnClickListener {
-                (context as ReserveActivity).viewPager.currentItem = 1
-                context.pet.postValue(pet)
+            if (click) {
+                root.setOnClickListener {
+                    (context as ReserveActivity).viewPager.currentItem = 1
+                    context.pet.postValue(pet)
+                }
             }
         }
     }

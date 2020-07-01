@@ -19,7 +19,13 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.vipet.petvip.Fragments.notifications.NotificationsFragment"
+        android:name="com.vipet.petvip.Fragments.profile.ProfileFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_public_info"
+        android:name="com.vipet.petvip.Fragments.PublicInfoFragment"
+        android:label="fragment_public_info"
+        tools:layout="@layout/fragment_public_info" />
 </navigation>
