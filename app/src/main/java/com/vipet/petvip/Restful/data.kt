@@ -1,6 +1,5 @@
 package com.vipet.petvip.Restful
 
-import android.view.inspector.IntFlagMapping
 
 // 단순 O / X
 data class Result(
@@ -20,13 +19,14 @@ data class Account(
 // 로그인용 정보
 data class LoginData(
     val ID: String,
-    val PW: String
+    val PW: String,
+    val Token:String
 )
 
 // 반려견 정보
 data class Pet(
     val ID: Int?,
-    val MemberID: String,
+    val MemberID: String?,
     val Img: String?,
     val Name: String,
     val Birth: String,
@@ -49,39 +49,52 @@ data class PostSchedule(
     val ManagerID: String,
     val PetID: Int,
     val ServiceType: Int,
-    val Start:String,
-    val End:String
+    val Start: String,
+    val End: String
 )
 
 data class Schedule(
-    val Service:String,
-    val Date:String,
-    val Pet:String,
-    val Time:String,
-    val Manager:String,
-    val Month:String,
-    val Day:String,
-    val ManagerID:String
+    val Service: String,
+    val Date: String,
+    val Pet: String,
+    val Time: String,
+    val Manager: String,
+    val Month: String,
+    val Day: String,
+    val ManagerID: String
 )
 
 data class Review(
-    val MemberID:String,
-    val Rating:Float,
-    val Content:String,
-    val MemberName:String
+    val MemberID: String,
+    val Rating: Float,
+    val Content: String,
+    val MemberName: String
 )
 
 data class ManagerDetail(
-    val Name:String,
-    val Rate:Float,
-    val ScheduleCnt:Int,
-    val ReviewCnt:Int,
-    val Reviews:List<Review>
+    val Name: String,
+    val Rate: Float,
+    val ScheduleCnt: Int,
+    val ReviewCnt: Int,
+    val Reviews: List<Review>
 )
 
 data class PostReview(
-    val MemberID:String,
-    val ManagerID:String,
+    val MemberID: String,
+    val ManagerID: String,
     val Rating: Float,
-    val Content:String
+    val Content: String
+)
+
+
+data class ManagerSchedule(
+    val MemberID: String,
+    val ServiceType: Int,
+    val PetID: Int,
+    val Start: String,
+    val End: String,
+    val PetName: String,
+    val MemberName: String,
+    val Addr: String,
+    val Phone: String
 )

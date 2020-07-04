@@ -63,4 +63,10 @@ interface RetrofitService {
 
     @GET("/Managers")
     fun getAllManagers(): Call<List<Manager>>
+
+    @GET("/Manager/Schedule")
+    fun getManagerSchedule(@Query("ID") id: String): Call<List<ManagerSchedule>>
+
+    @GET("/Pet")
+    fun getPet(@Query("ID") id: Int): Call<Pet>
 }

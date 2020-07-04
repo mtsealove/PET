@@ -2,15 +2,19 @@ package com.vipet.petvip.Account
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.CheckBox
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.iid.FirebaseInstanceId
 import com.vipet.petvip.MainActivity
+import com.vipet.petvip.ManagerActivity
 import com.vipet.petvip.R
 import com.vipet.petvip.Restful.Account
 import com.vipet.petvip.Restful.LoginData
@@ -19,6 +23,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.MessageDigest
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        getAppKeyHash()
         supportActionBar!!.hide()
 
         setLogin()
@@ -43,8 +50,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun Login(account: Account) {
         user.value = account
-        // 메인 액티비티로 이동
-        startActivity(Intent(this, MainActivity::class.java))
+        // 회원 종류에 따라 다른 액티비티로 이동
+        var intent: Intent? = null
+        when (user.value!!.Cat) {
+            0 -> intent = Intent(this, MainActivity::class.java)
+            else -> {
+                intent = Intent(this, ManagerActivity::class.java)
+            }
+        }
+        startActivity(intent)
         finish()
     }
 
@@ -63,26 +77,47 @@ class LoginActivity : AppCompatActivity() {
             if (checkInput()) {
                 val id = login_et_id.text.toString()
                 val pw = login_et_pw.text.toString()
-                val call = Rest.getService().Login(LoginData(id, pw))
-                call.enqueue(object : Callback<Account> {
-                    override fun onFailure(call: Call<Account>, t: Throwable) {
-                        Toast.makeText(applicationContext, "서버 연결 실패", Toast.LENGTH_SHORT).show()
-                    }
 
-                    override fun onResponse(call: Call<Account>, response: Response<Account>) {
-                        if (response.isSuccessful) {
-                            response.body()?.let { account: Account ->
-                                val save = findViewById<CheckBox>(R.id.login_cb_keep).isChecked
-                                account.PW = pw
-                                saveAccount(save, account)
-                                Login(account)
-                            } ?: {
-                                showSnackBar("아이디와 비밀번호를 확인하세요")
-                            }()
+                // firebase token 가져오기
+                FirebaseInstanceId.getInstance().instanceId
+                    .addOnCompleteListener(OnCompleteListener { task ->
+                        if (!task.isSuccessful) {
+                            return@OnCompleteListener
                         }
-                    }
 
-                })
+                        task.result?.token?.let { token ->
+                            val call = Rest.getService().Login(LoginData(id, pw, token))
+                            call.enqueue(object : Callback<Account> {
+                                override fun onFailure(call: Call<Account>, t: Throwable) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "서버 연결 실패",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                                override fun onResponse(
+                                    call: Call<Account>,
+                                    response: Response<Account>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        response.body()?.let { account: Account ->
+                                            val save =
+                                                findViewById<CheckBox>(R.id.login_cb_keep).isChecked
+                                            account.PW = pw
+                                            saveAccount(save, account)
+                                            Login(account)
+                                        } ?: {
+                                            showSnackBar("아이디와 비밀번호를 확인하세요")
+                                        }()
+                                    }
+                                }
+
+                            })
+                        }
+                    })
+
+
             }
         }
     }
@@ -151,6 +186,23 @@ class LoginActivity : AppCompatActivity() {
         } else {
             backPressedTime = tempTime
             Toast.makeText(this, "'뒤로가기'버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getAppKeyHash() {
+        try {
+            val info =
+                packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                var md: MessageDigest
+                md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val something = String(Base64.encode(md.digest(), 0))
+                Log.e("Hash key", something)
+            }
+        } catch (e: Exception) {
+            // TODO Auto-generated catch block
+            Log.e("name not found", e.toString())
         }
     }
 }

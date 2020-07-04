@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "29385232938",
+    "firebase_url": "https://vipet-proto.firebaseio.com",
+    "project_id": "vipet-proto",
+    "storage_bucket": "vipet-proto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29385232938:android:2104a8946b330573fba953",
+        "android_client_info": {
+          "package_name": "com.vipet.petvip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29385232938-l62a33bp417hrps78pokogftqsclfctl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2zCHLH1xdOTpBZFQ2VhaBbaWqR1ltdUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29385232938-l62a33bp417hrps78pokogftqsclfctl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

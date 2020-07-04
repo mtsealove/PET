@@ -8,4 +8,5 @@
     <color name="dark_gray">#707070</color>
     <color name="divide_gray">#C4C4C4</color>
     <color name="default_back">#F1F1F1</color>
+    <color name="red">#FF5651</color>
 </resources>

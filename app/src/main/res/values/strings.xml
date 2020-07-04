@@ -232,4 +232,10 @@
     <string name="pet_list">반려동물 목록</string>
     <string name="add_pet">반려동물 추가하기</string>
     <string name="keep_login">로그인 유지</string>
+    <string name="review_log">리뷰</string>
+    <string name="pet_info">반려견 정보 확인</string>
+    <string name="start_time">시작 시간</string>
+    <string name="end_time">종료 시간</string>
+    <string name="member_name">고객명</string>
+    <string name="member_location">고객 위치 확인</string>
 </resources>

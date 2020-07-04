@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="15dp"
+    android:paddingTop="15dp"
     tools:context=".Fragments.PublicInfoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="식품정보 검색"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:elevation="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_round"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/public_info_et_search"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="식품 검색"
+            android:background="@drawable/input"
+            android:gravity="center_vertical|left"
+            android:layout_marginEnd="10dp"
+            android:padding="3dp" />
+
+        <Button
+            android:id="@+id/public_info_btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/primary_btn"
+            android:text="검색"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/public_info_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/public_info_no_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:gravity="center"
+        android:text="검색 결과가 없습니다.\n반려동움이 섭취하면 안되는 음식입니다."
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/red" />
 
-</FrameLayout>
+</LinearLayout>

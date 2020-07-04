@@ -2,4 +2,6 @@
 <resources>
     <declare-styleable name="NextBtn">
     </declare-styleable>
+    <declare-styleable name="LogoView" >
+    </declare-styleable>
 </resources>
