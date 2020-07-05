@@ -33,7 +33,7 @@ class ManagerListActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Manager>>, response: Response<List<Manager>>) {
                 if (response.isSuccessful && response.body() != null) {
                     manager_list_rv.adapter =
-                        ManagerAdapter(response.body()!!, baseContext, null, null)
+                        ManagerAdapter(response.body()!!, baseContext, null, null, 0)
                 }
             }
         })

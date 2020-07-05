@@ -28,7 +28,7 @@ import java.util.*
 import javax.security.auth.login.LoginException
 import kotlin.math.log
 
-class SelectManagerFragment(val Start: String, val End: String) : Fragment() {
+class SelectManagerFragment(val Start: String, val End: String, val price: Int) : Fragment() {
     val model = TimeViewModel()
     lateinit var rv: RecyclerView
     override fun onCreateView(
@@ -53,7 +53,7 @@ class SelectManagerFragment(val Start: String, val End: String) : Fragment() {
 
             override fun onResponse(call: Call<List<Manager>>, response: Response<List<Manager>>) {
                 if (response.isSuccessful && response.body() != null) {
-                    val adapter = ManagerAdapter(response.body()!!, context!!, start, end)
+                    val adapter = ManagerAdapter(response.body()!!, context!!, start, end, price)
                     rv.adapter = adapter
                 }
             }

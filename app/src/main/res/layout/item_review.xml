@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginTop="10dp"
+    android:layout_marginVertical="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:elevation="4dp"
+    android:background="@drawable/review_backround"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/item_review_tv_member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/lime"
             android:textStyle="bold"
             android:text="사용자"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <RatingBar
             android:id="@+id/item_review_rating"
@@ -28,19 +30,13 @@
     </RelativeLayout>
 
     <TextView
+        android:lineSpacingExtra="0dp"
         android:id="@+id/item_review_tv_content"
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="여러가지\n땡떙"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/light_gray"
         />
 
-    <View
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/dark_gray"/>
 </LinearLayout>

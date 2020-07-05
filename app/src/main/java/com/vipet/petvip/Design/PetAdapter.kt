@@ -56,7 +56,7 @@ class PetAdapter(val pets: List<Pet>, val context: Context, val click: Boolean) 
             intoTv.text = info
             try {
                 Glide.with(context)
-                    .load("http://172.19.68.108:3000/${pet.Img}")
+                    .load("http://13.125.209.134:3000/${pet.Img}")
                     .apply(RequestOptions().circleCrop())
                     .into(profileIv)
             } catch (e: Exception) {

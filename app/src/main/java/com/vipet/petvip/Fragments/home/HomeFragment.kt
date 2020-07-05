@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
                             var height = 206
                             height *= response.body()!!.size * 5
                             rv.setHeight(height)
-                            rv.adapter = ScheduleAdapter(schedules, c)
+                            rv.adapter = ScheduleAdapter(schedules, c, true)
                         }
 
                     }

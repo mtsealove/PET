@@ -8,11 +8,11 @@
     tools:context=".ReviewActivity">
 
     <LinearLayout
-        android:elevation="2dp"
         android:id="@+id/review_top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/input_round"
+        android:elevation="2dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="15dp">
@@ -24,22 +24,22 @@
             android:layout_height="wrap_content"
             android:clickable="false"
             android:isIndicator="true"
-            android:max="5"/>
+            android:max="5" />
 
         <TextView
             android:id="@+id/review_tv_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3.5 / 5"
-            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimary" />
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_marginTop="10dp"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -52,8 +52,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="예약 수"
-                    android:textSize="16sp"
-                    android:textColor="@color/dark_gray" />
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/review_tv_schedule"
@@ -61,15 +61,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="예약 수"
-                    android:textSize="16sp"
-                    android:textColor="@color/dark_gray" />
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
-                android:layout_marginHorizontal="50dp"
-                android:background="@color/dark_gray"
                 android:layout_width="1dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="50dp"
+                android:background="@color/dark_gray" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -81,8 +81,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="후기 수"
-                    android:textSize="16sp"
-                    android:textColor="@color/dark_gray" />
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/review_tv_review"
@@ -90,33 +90,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="예약 수"
-                    android:textSize="16sp"
-                    android:textColor="@color/dark_gray" />
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:elevation="2dp"
-        android:layout_marginVertical="20dp"
-        android:layout_below="@id/review_top_layout"
-        android:layout_above="@id/review_btn_review"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/review_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/input_round"
-        android:padding="15dp"
-        android:orientation="vertical">
+        android:layout_above="@id/review_btn_review"
+        android:layout_below="@id/review_top_layout"
+        android:layout_marginVertical="20dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/review_rv" />
-    </LinearLayout>
 
     <com.vipet.petvip.Design.NextBtn
-        android:layout_alignParentBottom="true"
         android:id="@+id/review_btn_review"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

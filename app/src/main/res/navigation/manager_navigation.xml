@@ -15,4 +15,9 @@
         android:name="com.vipet.petvip.Fragments.ManagerReviewFragment"
         android:label="fragment_manager_review"
         tools:layout="@layout/fragment_manager_review" />
+    <fragment
+        android:id="@+id/benefitFragment"
+        android:name="com.vipet.petvip.Fragments.BenefitFragment"
+        android:label="fragment_benefit"
+        tools:layout="@layout/fragment_benefit" />
 </navigation>

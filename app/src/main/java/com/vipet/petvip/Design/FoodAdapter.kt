@@ -50,7 +50,7 @@ class FoodAdapter(val foodList: List<Item>, val context: Context) :
             SetChart(item, context)
         }
 
-        //매출 차트 설정
+        // 성분 차트 작성
         private fun SetChart(item: Item, context: Context) {
             val listData = ArrayList<BarEntry>()
             val data = ArrayList<Float>()

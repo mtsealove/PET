@@ -59,10 +59,12 @@
                     android:inputType="text"
                     android:paddingVertical="10dp"
                     android:paddingLeft="5dp"
+                    android:imeOptions="actionNext"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <EditText
+                    android:imeOptions="actionDone"
                     android:id="@+id/login_et_pw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,15 +78,6 @@
                     android:textSize="18sp" />
 
 
-                <TextView
-                    android:textColor="@color/dark_gray"
-                    android:id="@+id/login_tv_find"
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="비밀번호를 잊어버리셨나요?"
-                    android:textStyle="bold"
-                    android:gravity="end"/>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -109,7 +102,7 @@
                 android:id="@+id/login_btn_login"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/primary_btn"
                 android:text="@string/login"

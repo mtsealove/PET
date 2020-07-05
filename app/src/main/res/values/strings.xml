@@ -238,4 +238,6 @@
     <string name="end_time">종료 시간</string>
     <string name="member_name">고객명</string>
     <string name="member_location">고객 위치 확인</string>
+    <string name="month_benefit">이번 달 수익</string>
+    <string name="total_benefit">전체 수익</string>
 </resources>

@@ -9,4 +9,8 @@
     <color name="divide_gray">#C4C4C4</color>
     <color name="default_back">#F1F1F1</color>
     <color name="red">#FF5651</color>
+    <color name="custom_red">#f86e51</color>
+    <color name="green">#54b588</color>
+    <color name="light_gray">#EDEDED</color>
+    <color name="lime">#ffe20b</color>
 </resources>

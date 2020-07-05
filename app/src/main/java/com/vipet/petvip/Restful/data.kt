@@ -20,7 +20,7 @@ data class Account(
 data class LoginData(
     val ID: String,
     val PW: String,
-    val Token:String
+    val Token: String
 )
 
 // 반려견 정보
@@ -50,7 +50,8 @@ data class PostSchedule(
     val PetID: Int,
     val ServiceType: Int,
     val Start: String,
-    val End: String
+    val End: String,
+    val Price: Int
 )
 
 data class Schedule(
@@ -97,4 +98,15 @@ data class ManagerSchedule(
     val MemberName: String,
     val Addr: String,
     val Phone: String
+)
+
+data class Benefit(
+    val Service: String,
+    val Price: Int,
+    val Cnt: Int
+)
+
+data class Benefits(
+    val Month: List<Benefit>,
+    val Total: List<Benefit>
 )

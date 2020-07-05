@@ -31,6 +31,7 @@ class SelectTimeFragment : Fragment() {
     lateinit var timeSp: Spinner
     lateinit var priceTv: TextView
     val price = arrayOf("18,000", "26,000", "30,000", "35,000")
+    var priceInt = parseInt(price[0].replace(",", ""))
     val viewModel by lazy {
         TimeViewModel()
     }
@@ -77,6 +78,7 @@ class SelectTimeFragment : Fragment() {
                 id: Long
             ) {
                 val p = price[position]
+                priceInt = parseInt(price[position].replace(",", ""))
                 priceTv.text = "${p} 원"
             }
 
@@ -86,22 +88,24 @@ class SelectTimeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun setDate() {
         dateTv.setOnClickListener {
-            val picker = DatePickerDialog(context!!)
-            picker.datePicker.minDate = Calendar.getInstance().timeInMillis
-            picker.setOnDateSetListener { view, year, month, dayOfMonth ->
-                date = "$year-"
-                if (month < 9) {
-                    date += "0"
+            context?.let {
+                val picker = DatePickerDialog(it)
+                picker.datePicker.minDate = Calendar.getInstance().timeInMillis
+                picker.setOnDateSetListener { view, year, month, dayOfMonth ->
+                    date = "$year-"
+                    if (month < 9) {
+                        date += "0"
+                    }
+                    date += "${month + 1}-"
+                    if (dayOfMonth < 10) {
+                        date += "0"
+                    }
+                    date += dayOfMonth
+                    dateTv.text =
+                        date
                 }
-                date += "${month + 1}-"
-                if (dayOfMonth < 10) {
-                    date += "0"
-                }
-                date += dayOfMonth
-                dateTv.text =
-                    date
+                picker.show()
             }
-            picker.show()
         }
     }
 
@@ -146,7 +150,13 @@ class SelectTimeFragment : Fragment() {
                     ReserveActivity.End = getEndTime()
                     val adapter: SectionsPagerAdapter =
                         (context as ReserveActivity).viewPager.adapter as SectionsPagerAdapter
-                    adapter.fragments.add(SelectManagerFragment("$date $time", getEndTime()))
+                    adapter.fragments.add(
+                        SelectManagerFragment(
+                            "$date $time",
+                            getEndTime(),
+                            priceInt
+                        )
+                    )
                     (context as ReserveActivity).viewPager.adapter = adapter
 
                     (context as ReserveActivity).viewPager.currentItem = 2

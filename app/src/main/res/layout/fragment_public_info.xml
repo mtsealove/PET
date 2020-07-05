@@ -12,16 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="식품정보 검색"
-        android:textColor="@color/black"
+        android:textColor="@color/green"
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <LinearLayout
-        android:elevation="3dp"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/input_round"
+        android:elevation="3dp"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -29,11 +29,13 @@
             android:id="@+id/public_info_et_search"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:hint="식품 검색"
             android:background="@drawable/input"
             android:gravity="center_vertical|left"
-            android:layout_marginEnd="10dp"
+            android:hint="식품 검색"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:padding="3dp" />
 
         <Button
@@ -56,9 +58,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="검색 결과가 없습니다.\n반려동움이 섭취하면 안되는 음식입니다."
-        android:textStyle="bold"
+        android:text="검색 결과가 없습니다.\n반려동물이 섭취하면 안되는 음식입니다."
+        android:textColor="@color/red"
         android:textSize="18sp"
-        android:textColor="@color/red" />
+        android:textStyle="bold" />
 
 </LinearLayout>

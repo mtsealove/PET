@@ -69,4 +69,7 @@ interface RetrofitService {
 
     @GET("/Pet")
     fun getPet(@Query("ID") id: Int): Call<Pet>
+
+    @GET("/Benefit")
+    fun getBenefits(@Query("ID") id: String): Call<Benefits>
 }

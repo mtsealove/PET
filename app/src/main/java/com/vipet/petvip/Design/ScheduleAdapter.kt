@@ -12,7 +12,11 @@ import com.vipet.petvip.Restful.Schedule
 import com.vipet.petvip.ReviewActivity
 import kotlinx.android.synthetic.main.item_schedule.view.*
 
-class ScheduleAdapter(private val scheduleList: List<Schedule>, val context: Context) :
+class ScheduleAdapter(
+    private val scheduleList: List<Schedule>,
+    val context: Context,
+    val simple: Boolean
+) :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +30,7 @@ class ScheduleAdapter(private val scheduleList: List<Schedule>, val context: Con
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(scheduleList[position], context)
+        holder.bind(scheduleList[position], context, simple)
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -39,7 +43,7 @@ class ScheduleAdapter(private val scheduleList: List<Schedule>, val context: Con
         private val dayTv = v.findViewById<TextView>(R.id.item_schedule_tv_day)
         private val reviewTv = v.findViewById<TextView>(R.id.item_schedule_tv_review)
 
-        fun bind(schedule: Schedule, context: Context) {
+        fun bind(schedule: Schedule, context: Context, simple: Boolean) {
             serviceTv.text = schedule.Service
             dateTv.text = schedule.Date
             petTv.text = schedule.Pet
@@ -47,13 +51,16 @@ class ScheduleAdapter(private val scheduleList: List<Schedule>, val context: Con
             expertTv.text = schedule.Manager
             monthTv.text = schedule.Month
             dayTv.text = schedule.Day
-
-            // 후기 작성
-            reviewTv.setOnClickListener {
-                val intent = Intent(context, ReviewActivity::class.java)
-                intent.putExtra("MANAGER", schedule.ManagerID)
-                intent.putExtra("AUTO", true)
-                context.startActivity(intent)
+            if (simple) {
+                reviewTv.visibility = View.GONE
+            } else {
+                // 후기 작성
+                reviewTv.setOnClickListener {
+                    val intent = Intent(context, ReviewActivity::class.java)
+                    intent.putExtra("MANAGER", schedule.ManagerID)
+                    intent.putExtra("AUTO", true)
+                    context.startActivity(intent)
+                }
             }
         }
     }

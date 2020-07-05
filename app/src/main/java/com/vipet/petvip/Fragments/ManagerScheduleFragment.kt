@@ -1,11 +1,16 @@
 package com.vipet.petvip.Fragments
 
+import android.app.AlertDialog
+import android.content.Context
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +19,7 @@ import com.vipet.petvip.Design.ManagerScheduleAdapter
 import com.vipet.petvip.R
 import com.vipet.petvip.Restful.ManagerSchedule
 import com.vipet.petvip.Restful.Rest
+import net.daum.mf.map.api.MapView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,4 +57,5 @@ class ManagerScheduleFragment : Fragment() {
 
         })
     }
+
 }

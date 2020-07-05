@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vipet.petvip.Account.LoginActivity
-import com.vipet.petvip.Design.BlankDecoration
 import com.vipet.petvip.Design.ScheduleAdapter
 import com.vipet.petvip.R
 import com.vipet.petvip.Restful.Rest
@@ -53,7 +52,7 @@ class ScheduleFragment : Fragment() {
                 if (response.isSuccessful) {
                     response.body()?.let { list ->
                         context?.let { c ->
-                            val adapter = ScheduleAdapter(list, c)
+                            val adapter = ScheduleAdapter(list, c, false)
                             rv.adapter = adapter
                         }
                     }

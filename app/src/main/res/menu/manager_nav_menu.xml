@@ -3,11 +3,16 @@
 
     <item
         android:id="@+id/managerScheduleFragment"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/nav_reserve"
         android:title="@string/reserve_log" />
 
     <item
         android:id="@+id/managerReviewFragment"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/nav_review"
         android:title="@string/review_log" />
+
+    <item
+        android:id="@+id/benefitFragment"
+        android:icon="@drawable/nav_benefit"
+        android:title="정산" />
 </menu>

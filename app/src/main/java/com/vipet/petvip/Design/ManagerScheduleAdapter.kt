@@ -15,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.vipet.petvip.Fragments.ManagerScheduleFragment
+import com.vipet.petvip.ManagerActivity
 import com.vipet.petvip.R
 import com.vipet.petvip.Restful.ManagerSchedule
 import com.vipet.petvip.Restful.Pet
@@ -84,7 +86,7 @@ class ManagerScheduleAdapter(
                 getPet(schedule.PetID, context)
             }
             locationTv.setOnClickListener {
-                showLocation(schedule.Addr, context)
+                (context as ManagerActivity).showLocation(schedule.Addr)
             }
         }
 
@@ -131,30 +133,8 @@ class ManagerScheduleAdapter(
             }
             weightTv.text = "${pet.Weight} Kg"
             Glide.with(context)
-                .load("http://172.30.101.1:3000/${pet.Img}").circleCrop()
+                .load("http://13.125.209.134:3000/${pet.Img}").circleCrop()
                 .into(profileIv)
-            builder.setView(view)
-            builder.create().show()
-        }
-
-        // 위치 정보 확인 다이얼로그
-        private fun showLocation(addr: String, context: Context) {
-            val view = LayoutInflater.from(context).inflate(R.layout.dialog_location, null, false)
-            val tv = view.findViewById<TextView>(R.id.dialog_location_tv)
-            val container = view.findViewById<RelativeLayout>(R.id.dialog_location_container)
-            // adb 불가
-            val mapView = MapView(context)
-            container.addView(mapView)
-            tv.text = addr
-            val geoCoder = Geocoder(context)
-            val list = geoCoder.getFromLocationName(addr, 3)
-            if (list.isNotEmpty()) {
-                Log.e("latitude", list[0].latitude.toString())
-                Log.e("logitude", list[0].longitude.toString())
-            } else {
-                Log.e("location", "not found")
-            }
-            val builder = AlertDialog.Builder(context)
             builder.setView(view)
             builder.create().show()
         }

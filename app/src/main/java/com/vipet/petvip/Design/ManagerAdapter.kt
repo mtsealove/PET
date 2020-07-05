@@ -36,7 +36,8 @@ class ManagerAdapter(
     val managers: List<Manager>,
     val context: Context,
     val start: String?,
-    val end: String?
+    val end: String?,
+    val price: Int
 ) :
     RecyclerView.Adapter<ManagerAdapter.ViewHolder>() {
 
@@ -51,7 +52,7 @@ class ManagerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(managers[position], context, start, end)
+        holder.bind(managers[position], context, start, end, price)
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -59,7 +60,7 @@ class ManagerAdapter(
         val rating = v.findViewById<RatingBar>(R.id.item_manager_rating)
         val root = v.findViewById<RelativeLayout>(R.id.item_manager_root)
 
-        fun bind(manager: Manager, context: Context, start: String?, end: String?) {
+        fun bind(manager: Manager, context: Context, start: String?, end: String?, price: Int) {
             nameTv.text = manager.Name
             rating.max = 5
             rating.rating = manager.Rate
@@ -72,7 +73,7 @@ class ManagerAdapter(
                             .setMessage("예약을 진행하시겠습니까?")
                             .setNegativeButton("취소", null)
                             .setPositiveButton("확인") { dialogInterface: DialogInterface, i: Int ->
-                                next(context, start, end, manager.ID)
+                                next(context, start, end, manager.ID, price)
                             }
                         builder.create().show()
                     }
@@ -86,12 +87,12 @@ class ManagerAdapter(
             }()
         }
 
-        fun next(context: Context, start: String, end: String, managerID: String) {
+        fun next(context: Context, start: String, end: String, managerID: String, price: Int) {
             val act = (context as ReserveActivity)
             val petid = act.pet.value!!.ID
             val serice = act.service
             val id = LoginActivity.user.value!!.ID
-            val schedule = PostSchedule(id, managerID, petid!!, serice, start, end)
+            val schedule = PostSchedule(id, managerID, petid!!, serice, start, end, price)
             Log.e("schedule", schedule.toString())
 
             val call = Rest.getService().createSchedule(schedule)

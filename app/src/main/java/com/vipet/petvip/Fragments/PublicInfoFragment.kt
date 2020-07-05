@@ -1,19 +1,26 @@
 package com.vipet.petvip.Fragments
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vipet.petvip.Design.FoodAdapter
+import com.vipet.petvip.MainActivity
 import com.vipet.petvip.R
 import com.vipet.petvip.Restful.PublicData
 import com.vipet.petvip.Restful.PublicRest
@@ -39,12 +46,26 @@ class PublicInfoFragment : Fragment() {
         }
         rv = root.findViewById(R.id.public_info_rv)
         rv.layoutManager = LinearLayoutManager(context)
+
+        // 엔터키로 검색
+        searchEt.setOnEditorActionListener { v, actionId, event ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    search()
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
         return root
     }
 
 
     // 입력값 체크 후 검색
     private fun search() {
+        closeKeyboard()
         if (searchEt.text.toString().isEmpty()) {
             Toast.makeText(context, "검색어를 입력하세요.", Toast.LENGTH_SHORT).show()
         } else {
@@ -84,4 +105,14 @@ class PublicInfoFragment : Fragment() {
         })
     }
 
+
+    private fun closeKeyboard() {
+        var view = (context as MainActivity).currentFocus
+
+        if (view != null) {
+            val inputMethodManager =
+                (context as Activity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
 }
